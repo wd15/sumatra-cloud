@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block navbarright %}
+<form class="navbar-form navbar-right">
+  <div class="form-group">
+    <input type="text" placeholder="Email" class="form-control">
+  </div>
+  <div class="form-group">
+    <input type="password" placeholder="Password" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-success">Sign in</button>
+</form>
+{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Sumatra Cloud</h1>
+    <p>We store your simulation metadata so you don't have to. Instead
+      of maintaining your own database use the clould service to
+      maintain your Sumatra records using Sumatra Cloud...</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+  </div>
+</div>
+{% endblock %}
