@@ -1,8 +1,6 @@
 from flask import Flask
 from flask.ext.sqlalchemy import SQLAlchemy
 import jinja2
-from jinja2 import Environment, PackageLoader
-import os
 from flask import url_for, get_flashed_messages
 
 app = Flask(__name__)

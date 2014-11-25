@@ -1,28 +1,25 @@
 {% extends "base.html" %}
 
-{% block navbarright %}
-<form class="navbar-form navbar-right" method="POST" name="login">
-  {{ form.hidden_tag() }}
-  <div class="form-group">
-    {{ form.openid(size=80, placeholder="Open ID", class="form-control") }}
-  </div>
-  <div class="checkbox">
-    <label style="color: white;">
-    {{ form.remember_me }} Remember
-    </label>
-  </div>
-  <button type="submit" class="btn btn-success">Sign in</button>
-</form>
+{% block content %}
+<div class="container">
+
+  <form class="form-signin" method="POST">
+    {{ form.hidden_tag() }}
+    <h2 class="form-signin-heading">Please sign in</h2>
+
+    <label for="inputopenid" class="sr-only">Open ID</label>
+    {{ form.openid(size=80, placeholder="Open ID", class="form-control", id="inputopenid", require=true, autofocus=true) }}
+
+    <div class="checkbox">
+      <label>
+        {{ form.remember_me }} Remember
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </form>
+
+</div> <!-- /container -->
 {% endblock %}
 
-{% block content %}
-<div class="jumbotron">
-  <div class="container">
-    <h1>Sumatra Cloud</h1>
-    <p>We store your simulation metadata so you don't have to. Instead
-      of maintaining your own database use the clould service to
-      maintain your Sumatra records using Sumatra Cloud...</p>
-    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-  </div>
-</div>
-{% endblock %}
+
+

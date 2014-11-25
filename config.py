@@ -6,3 +6,7 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 WTF_CSRF_ENABLED = True
 SECRET_KEY = '33stanlake#'
+
+DEBUG = True
+
+APP_TITLE = 'Sumatra Cloud'
