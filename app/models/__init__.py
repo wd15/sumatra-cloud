@@ -1,2 +1,2 @@
-from user import User
-from project import Project
+from user_model import UserModel
+from project_model import ProjectModel
