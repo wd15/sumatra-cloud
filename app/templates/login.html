@@ -1,21 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
 
-  <form class="form-signin" method="POST">
+<script type="text/javascript">
+function set_openid(openid, pr)
+{
+    form = document.forms['login'];
+    form.elements['openid'].value = openid
+}
+</script>
+
+<div class="container" style="width:500px;">
+
+  <form class="form-signin" method="POST" name="login">
+
     {{ form.hidden_tag() }}
     <h2 class="form-signin-heading">Please sign in</h2>
 
-    <label for="inputopenid" class="sr-only">Open ID</label>
+    <span id="helpBlock" class="help-block">Click on an OpenID provider below:</span>
+    
+    {% for pr in providers %}
+    <a href="javascript:set_openid('{{ pr.url }}', '{{ pr.name }}');">
+      <img src="/static/img/{{ pr.name.lower() }}.png" class="img-responsive" style="margin:20px;" />
+    </a>
+    {% endfor %}
+
+    <span id="helpBlock1" class="help-block">Or enter an OpenID URL below:</span>
+
+    <!-- <label for="inputopenid" class="sr-only">Or enter an OpenID URL below:</label> -->
     {{ form.openid(size=80, placeholder="Open ID", class="form-control", id="inputopenid", require=true, autofocus=true) }}
+
+    {% for error in form.openid.errors %}
+      <span style="color: red;">[{{error}}]</span>
+    {% endfor %}<br>
 
     <div class="checkbox">
       <label>
         {{ form.remember_me }} Remember
       </label>
     </div>
+
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
   </form>
 
 </div> <!-- /container -->

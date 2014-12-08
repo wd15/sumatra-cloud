@@ -42,7 +42,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
+            {% if g.user.is_anonymous() %}
             <li><a href="{{ url_for('login_view') }}">Login</a></li>
+            {% else %}
+            <li><a href="{{ url_for('user_view', user=g.user.nickname) }}">{{ g.user.nickname }}</a></li>
+            <li><a href="{{ url_for('logout_view') }}">Logout</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
@@ -51,11 +56,11 @@
     {% block content %}
     {% endblock %}
 
-    <div class="container">
-      <footer>
-        <p>Daniel Wheeler 2014</p>
-      </footer>
-    </div>
+    <!-- <div class="container"> -->
+    <!--   <footer> -->
+    <!--     <p>Daniel Wheeler 2014</p> -->
+    <!--   </footer> -->
+    <!-- </div> -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
