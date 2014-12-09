@@ -45,8 +45,8 @@
             {% if g.user.is_anonymous() %}
             <li><a href="{{ url_for('login_view') }}">Login</a></li>
             {% else %}
-            <li><a href="{{ url_for('user_view', user=g.user.nickname) }}">{{ g.user.nickname }}</a></li>
-            <li><a href="{{ url_for('logout_view') }}">Logout</a></li>
+            <li><a href="{{ url_for('user_view', id=g.user.id) }}">{{ g.user.nickname }}</a></li>
+            <li><a href="{{ url_for('logout_view', next=request.path) }}">Logout</a></li>
             {% endif %}
           </ul>
         </div>

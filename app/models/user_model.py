@@ -24,3 +24,11 @@ class UserModel(db.Model):
             return unicode(self.id)  # python 2
         except NameError:
             return str(self.id)  # python 3
+
+    @classmethod
+    def get_by_id(cls, id):
+        return db.session.query(cls).get(id)
+
+    def add(self):
+        db.session.add(self)
+        db.session.commit()
