@@ -32,3 +32,17 @@ class UserModel(db.Model):
     def add(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_by_nickname(cls, name):
+        return db.session.query(cls).filter_by(nickname=name).first()
+
+    @classmethod
+    def get_anonymous(cls):
+        name = 'anonymous'
+        user = cls.get_by_nickname(name)
+        if user is None:
+            user = cls(email='', nickname=name)
+            user.add()
+        return user
+
