@@ -20,7 +20,4 @@ class ProjectModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def get_by_name(cls, name):
-        return db.session.query(cls).filter_by(name=name).first()
 

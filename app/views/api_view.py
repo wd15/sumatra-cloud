@@ -15,13 +15,8 @@ def api():
 
 @app.route(api_url + '/<project_name>/', methods=['GET', 'PUT'])
 def project(project_name):
-    project = ProjectModel.get_by_name(project_name)
-    print
-    print 'project_name',project_name
-    print fk.request.method
-    print project
-    print
     if fk.request.method == 'PUT':
+        project = ProjectModel.query.filter_by(name=project_name).first()
         if project:
             return fk.make_response('Project already exists', status.HTTP_200_OK)
         else:
@@ -30,11 +25,8 @@ def project(project_name):
             project.add()
             return fk.make_response('Created project', status.HTTP_201_CREATED)
     elif fk.request.method == 'GET':
-        if project:
-            user = UserModel.get_by_nickname('daniel.wheeler2')
-            return fk.json.jsonify(project.serialize)
-        else:
-            return fk.make_response('Project not found', status.HTTP_404_NOT_FOUND)
+        project = ProjectModel.query.filter_by(name=project_name).first_or_404()
+        return fk.json.jsonify(project.serialize)
     
 @app.route(api_url + '/<project_name>/tag/<tag>/')
 def api_project_tag(project_name, tag):
