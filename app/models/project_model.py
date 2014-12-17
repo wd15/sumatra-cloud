@@ -6,6 +6,7 @@ class ProjectModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(300))
     description = db.Column(db.Text())
+    records = db.relationship('RecordModel', backref='project', lazy='dynamic')
 
     @property
     def serialize(self):
@@ -19,5 +20,6 @@ class ProjectModel(db.Model):
     def add(self):
         db.session.add(self)
         db.session.commit()
+
 
 

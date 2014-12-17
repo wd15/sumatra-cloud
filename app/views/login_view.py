@@ -1,27 +1,27 @@
 import flask as fk
 from flask.ext import login
-from app import app, oid, lm
+from app import app, openid, login_manager
 from ..forms import LoginForm
 from ..models import UserModel
 
 @app.route('/login', methods=['GET', 'POST'])
-@oid.loginhandler
+@openid.loginhandler
 def login_view():
     if fk.g.user is not None and fk.g.user.is_authenticated():
         return fk.redirect(fk.url_for('user_view', id=fk.g.user.id))
     form = LoginForm()
     if form.validate_on_submit():
         fk.session['remember_me'] = form.remember_me.data
-        return oid.try_login(form.openid.data, ask_for=['nickname', 'email'])
+        return openid.try_login(form.openid.data, ask_for=['nickname', 'email'])
     return fk.render_template('login.html',
                               form=form,
                               providers=app.config['OPENID_PROVIDERS'])
 
-@lm.user_loader
+@login_manager.user_loader
 def load_user(id):
     return UserModel.query.get(int(id))
 
-@oid.after_login
+@openid.after_login
 def after_login(resp):
     if resp.email is None or resp.email == "":
         fk.flash('Invalid login. Please try again.')
