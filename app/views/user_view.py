@@ -4,5 +4,5 @@ import flask as fk
 
 @app.route('/user/view/<int:id>')
 def user_view(id):
-    user = UserModel.get_by_id(id)
+    user = UserModel.query.get(id)
     return fk.render_template('user.html', user=user)

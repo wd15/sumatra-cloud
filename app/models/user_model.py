@@ -25,22 +25,14 @@ class UserModel(db.Model):
         except NameError:
             return str(self.id)  # python 3
 
-    @classmethod
-    def get_by_id(cls, id):
-        return db.session.query(cls).get(id)
-
     def add(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_by_nickname(cls, name):
-        return db.session.query(cls).filter_by(nickname=name).first()
-
-    @classmethod
     def get_anonymous(cls):
         name = 'anonymous'
-        user = cls.get_by_nickname(name)
+        user = cls.query.filter_by(nickname=name).first()
         if user is None:
             user = cls(email='', nickname=name)
             user.add()

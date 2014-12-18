@@ -6,6 +6,7 @@ class ProjectModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(300))
     description = db.Column(db.Text())
+    records = db.relationship('RecordModel', backref='project', lazy='dynamic')
 
     @property
     def serialize(self):
@@ -20,7 +21,5 @@ class ProjectModel(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    @classmethod
-    def get_by_name(cls, name):
-        return db.session.query(cls).filter_by(name=name).first()
+
 
