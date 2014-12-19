@@ -26,10 +26,6 @@ class UserModel(db.Document):
 
     @classmethod
     def get_anonymous(cls):
-        name = 'anonymous'
-        user = cls.query.filter_by(nickname=name).first()
-        if user is None:
-            user = cls(email='', nickname=name)
-            user.add()
+        user, created = cls.objects.get_or_create(nickname='anonymous', email='')
         return user
 
