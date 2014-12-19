@@ -2,7 +2,7 @@ from app import app
 import flask as fk
 import login_view
 import user_view
-import api_view
+# import api_view
 
 @app.route('/')
 @app.route('/index')

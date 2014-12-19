@@ -1,12 +1,11 @@
-from .. import db
+from app import db
+import datetime
 
-class UserModel(db.Model):
-    __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    nickname = db.Column(db.String(64), index=True, unique=True)
-    projects = db.relationship('ProjectModel', backref='user', lazy='dynamic')
-    
+class UserModel(db.Document):
+    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
+    email = db.StringField(max_length=120, required=True, unique=True)
+    nickname = db.StringField(max_length=64, required=True)
+
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
@@ -24,10 +23,6 @@ class UserModel(db.Model):
             return unicode(self.id)  # python 2
         except NameError:
             return str(self.id)  # python 3
-
-    def add(self):
-        db.session.add(self)
-        db.session.commit()
 
     @classmethod
     def get_anonymous(cls):
