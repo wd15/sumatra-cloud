@@ -19,20 +19,19 @@ def login_view():
 
 @login_manager.user_loader
 def load_user(id):
-    return UserModel.query.get(int(id))
+    return UserModel.objects.with_id(id)
 
 @openid.after_login
 def after_login(resp):
     if resp.email is None or resp.email == "":
         fk.flash('Invalid login. Please try again.')
         return fk.redirect(fk.url_for('login_view'))
-    user = UserModel.query.filter_by(email=resp.email).first()
-    if user is None:
-        nickname = resp.nickname
-        if nickname is None or nickname == "":
-            nickname = resp.email.split('@')[0]
-        user = UserModel(nickname=nickname, email=resp.email)
-        user.add()
+
+    nickname = resp.nickname
+    if nickname is None or nickname == "":
+        nickname = resp.email.split('@')[0]
+    user, created = UserModel.objects.get_or_create(nickname=nickname, email=resp.email)
+
     remember_me = False
     if 'remember_me' in fk.session:
         remember_me = fk.session['remember_me']

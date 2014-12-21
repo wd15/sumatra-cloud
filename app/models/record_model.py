@@ -1,17 +1,14 @@
 from .. import db
+from ..models import ProjectModel
 
-class RecordModel(db.Model):
-    __tablename__ = 'record'
-    id = db.Column(db.Integer, primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
-    label = db.Column(db.String(300))
+class RecordModel(db.Document):
+    project = db.ReferenceField(ProjectModel, reverse_delete_rule=db.CASCADE)
+    label = db.StringField(max_length=300)
 
-    def add(self):
-        db.session.add(self)
-        db.session.commit()
-    
     @property
     def serialize(self):
         return {'id': self.id,
-                'project_id': self.project_id,
+                'project_id': self.project.id,
                 'label': self.label}
+
+## add class RecordHead

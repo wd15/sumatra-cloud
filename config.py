@@ -1,9 +1,6 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
-SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
-
 WTF_CSRF_ENABLED = True
 SECRET_KEY = '33stanlake#'
 
@@ -15,3 +12,8 @@ OPENID_PROVIDERS = [
     {'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id'},
     {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
 
+MONGODB_SETTINGS = {
+    'db': 'sumatra-flask',
+    'host': '127.0.0.1',
+    'port': 27017
+}
