@@ -1,5 +1,5 @@
-from app import app
-from ..models import UserModel
+from common.core import app
+from common.models import UserModel
 import flask as fk
 
 

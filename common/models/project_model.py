@@ -1,4 +1,4 @@
-from .. import db
+from ..core import db
 from ..models import UserModel
 #from ..models import RecordModel
 
