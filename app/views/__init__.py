@@ -1,8 +1,7 @@
-from app import app
+from common.core import app
 import flask as fk
 import login_view
 import user_view
-import api_view
 
 @app.route('/')
 @app.route('/index')

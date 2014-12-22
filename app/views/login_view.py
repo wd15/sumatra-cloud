@@ -1,8 +1,9 @@
 import flask as fk
 from flask.ext import login
-from app import app, openid, login_manager
+from common.core import app
+from app import openid, login_manager
 from ..forms import LoginForm
-from ..models import UserModel
+from common.models import UserModel
 
 @app.route('/login', methods=['GET', 'POST'])
 @openid.loginhandler
