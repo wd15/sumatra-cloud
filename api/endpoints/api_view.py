@@ -1,9 +1,9 @@
-from app import app
+from common.core import app
 import flask as fk
 
-from ..models import ProjectModel
-from ..models import UserModel
-from ..models import RecordModel
+from common.models import ProjectModel
+from common.models import UserModel
+from common.models import RecordModel
 from flask.ext.api import status
 
 API_VERSION = 3

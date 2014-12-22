@@ -1,4 +1,4 @@
-from .. import db
+from ..core import db
 from ..models import ProjectModel
 
 class RecordModel(db.Document):

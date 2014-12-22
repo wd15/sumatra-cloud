@@ -1,4 +1,4 @@
-from app import db
+from ..core import db
 import datetime
 
 class UserModel(db.Document):
