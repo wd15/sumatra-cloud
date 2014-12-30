@@ -1,7 +1,6 @@
-from common.core import app
 from common.models import UserModel
 import flask as fk
-
+from smt_view import app
 
 @app.route('/user/view/<objectid:id>')
 def user_view(id):

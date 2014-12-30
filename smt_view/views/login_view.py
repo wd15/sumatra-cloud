@@ -1,7 +1,7 @@
 import flask as fk
 from flask.ext import login
-from common.core import app
-from app import openid, login_manager
+from smt_view import app
+from smt_view import openid, login_manager
 from ..forms import LoginForm
 from common.models import UserModel
 
