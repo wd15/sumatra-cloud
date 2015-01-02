@@ -1,14 +1,19 @@
 from flask import Flask
+from . import tools
 from flask.ext.mongoengine import MongoEngine
-import tools
 
-# Contains the main shared instances between the app and the api
-app = Flask(__name__)
-app.config.from_object('config')
-app.debug = True
+db = MongoEngine()
 
-# Flask-MongoEngine instance
-db = MongoEngine(app)
+def setup_app(name):
+    app = Flask(name)
+    app.config.from_object('config')
+    app.debug = True
 
-# Custom Converters
-app.url_map.converters['objectid'] = tools.ObjectIDConverter
+    # Flask-MongoEngine instance
+    db.init_app(app)
+    
+    # Custom Converters
+    app.url_map.converters['objectid'] = tools.ObjectIDConverter
+
+    return app
+

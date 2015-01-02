@@ -1,5 +1,5 @@
-from ..core import db
 import datetime
+from ..core import db
 
 class UserModel(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)

@@ -1,4 +1,4 @@
-from common.core import app
+from smt_view import app
 import flask as fk
 import login_view
 import user_view
