@@ -13,7 +13,7 @@ def login_view():
     form = LoginForm()
     if form.validate_on_submit():
         fk.session['remember_me'] = form.remember_me.data
-        return openid.try_login(form.openid.data, ask_for=['nickname', 'email'])
+        return openid.try_login(form.openid.data, ask_for=['email'])
     return fk.render_template('login.html',
                               form=form,
                               providers=app.config['OPENID_PROVIDERS'])
@@ -28,10 +28,7 @@ def after_login(resp):
         fk.flash('Invalid login. Please try again.')
         return fk.redirect(fk.url_for('login_view'))
 
-    nickname = resp.nickname
-    if nickname is None or nickname == "":
-        nickname = resp.email.split('@')[0]
-    user, created = UserModel.objects.get_or_create(nickname=nickname, email=resp.email)
+    user, created = UserModel.objects.get_or_create(email=resp.email)
 
     remember_me = False
     if 'remember_me' in fk.session:

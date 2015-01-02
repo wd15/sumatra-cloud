@@ -4,10 +4,9 @@ from ..core import db
 class UserModel(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     email = db.StringField(max_length=120, required=True, unique=True)
-    nickname = db.StringField(max_length=64, required=True)
 
     def __repr__(self):
-        return '<User %r>' % (self.nickname)
+        return '<User %r>' % (self.email)
 
     def is_authenticated(self):
         return True
@@ -24,8 +23,4 @@ class UserModel(db.Document):
         except NameError:
             return str(self.id)  # python 3
 
-    @classmethod
-    def get_anonymous(cls):
-        user, created = cls.objects.get_or_create(nickname='anonymous', email='')
-        return user
 
