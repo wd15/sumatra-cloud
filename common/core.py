@@ -1,5 +1,5 @@
 from flask import Flask
-from . import tools
+from .tools.converters import ObjectIDConverter
 from flask.ext.mongoengine import MongoEngine
 
 db = MongoEngine()
@@ -13,7 +13,7 @@ def setup_app(name):
     db.init_app(app)
     
     # Custom Converters
-    app.url_map.converters['objectid'] = tools.ObjectIDConverter
+    app.url_map.converters['objectid'] = ObjectIDConverter
 
     return app
 
