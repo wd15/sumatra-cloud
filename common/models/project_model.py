@@ -21,8 +21,18 @@ class ProjectModel(db.Document):
         from ..models import RecordModel
         return RecordModel.objects(project=self).count()
 
-    def to_table_json(self):
+    def get_datatable(self):
         from ..models import RecordModel
         records = RecordModel.objects(project=self)
-        return [r.to_json() for r in records]
+        data = [[r.label,
+                 r.data["duration"],
+                 r.data["executable"]["name"],
+                 r.data["version"][:12],
+                 r.data["tags"],
+                 r.data["main_file"],
+                 r.project.user.email,
+                 r.data["timestamp"]] for r in records]
+        titles = ["Label", "Duration", "Executable", "Version", "Tags", "Main File", "Email", "Time Stamp"]
+        columns = [{"title" : t} for t in titles]
+        return data, columns
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+x{% extends "base.html" %}
 
 {% block headlinks %}
 
@@ -32,17 +32,7 @@
       <h1 class="Records"></h1>
       <div class="table-responsive">
 
-        <table class="table table-striped" id="projects">
-          <!-- <thead> -->
-          <!--   <tr> -->
-          <!--     <th>Name</th> -->
-          <!--     <th>User</th> -->
-          <!--     <th>Number of Records</th> -->
-          <!--   </tr> -->
-          <!-- </thead> -->
-          <!-- <\!-- <tbody> -\-> -->
-          <!-- <\!-- </tbody> -\-> -->
-        </table>
+        <table class="table table-striped" id="tableid"></table>
 
       </div>
     </div>
@@ -55,25 +45,14 @@
 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
 <script>
-  var dataset = {{ table_json|safe }};
+  var data = {{ data|tojson|safe }};
 
   $(function(){
-    $("#projects").dataTable({
-      "data" : dataset,
-      "columns" : [{"title" : "Name", "targets" : 0, "render" :
-                     function ( data, type, row ) {
-                       return '<a href='+row[4]+'>'+data+'</a>';
-                     }
-                   },
-                   {"title" : "User", "targets" : 1},
-                   {"title" : "Number of Records", "targets" : 2},
-                   {"title" : "Created", "targets" : 3}]
+    $("#tableid").dataTable({
+      "data" : data,
+      "columns" : {{ columns|tojson|safe }}
     });
   });
 </script>
-<!-- <script type="text/javascript" charset="utf-8"> -->
-<!--   $(document).ready(function() { -->
-<!--   $('#projects').dataTable(); -->
-<!--   } ); -->
-<!-- </script> -->
+
 {% endblock %}
