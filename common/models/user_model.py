@@ -1,8 +1,9 @@
 import datetime
 from ..core import db
+import flask as fk
 
 class UserModel(db.Document):
-    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
+    created_at = db.DateTimeField(default=datetime.datetime.now)
     email = db.StringField(max_length=120, required=True, unique=True)
 
     def __repr__(self):
@@ -23,4 +24,15 @@ class UserModel(db.Document):
         except NameError:
             return str(self.id)  # python 3
 
-
+    def get_datatable(self):
+        from common.models import ProjectModel
+        projects = ProjectModel.objects(user=self)
+        data = [['<a href="{0}">{1}</a>'.format(fk.url_for('project_view', id=p.id), p.name),
+                 p.user.email,
+                 p._count(),
+                 p.created_at.strftime('%x %X')] for p in projects]
+        titles = ["Name", "User", "Number of Records", "Created"]
+        columns = [{"title" : t} for t in titles]
+        return data, columns
+        
+        
