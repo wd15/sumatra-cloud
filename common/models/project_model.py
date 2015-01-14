@@ -8,11 +8,9 @@ class ProjectModel(db.Document):
     name = db.StringField(max_length=300, required=True)
 
     def to_smt_json(self, request):
-        from ..models import RecordModel
-        record_query = RecordModel.objects(project=self)
-        record_urls = [request.url + r.label for r in record_query]
-        project_dict = dict()
-        project_dict['records'] = record_urls        
-        return json.dumps(project_dict)
+        from ..models import RecordHeadModel
+        head_query = RecordHeadModel.objects(project=self)
+        heads = [r.to_smt_json() for r in head_query]
+        return json.dumps({'project':self.name, 'url':request.url, 'records': heads})
 
 
