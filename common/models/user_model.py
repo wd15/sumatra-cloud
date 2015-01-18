@@ -1,8 +1,9 @@
 import datetime
 from ..core import db
+import flask as fk
 
 class UserModel(db.Document):
-    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
+    created_at = db.DateTimeField(default=datetime.datetime.now)
     email = db.StringField(max_length=120, required=True, unique=True)
 
     def __repr__(self):
@@ -23,4 +24,5 @@ class UserModel(db.Document):
         except NameError:
             return str(self.id)  # python 3
 
-
+        
+        
