@@ -24,15 +24,5 @@ class UserModel(db.Document):
         except NameError:
             return str(self.id)  # python 3
 
-    def get_datatable(self):
-        from common.models import ProjectModel
-        projects = ProjectModel.objects(user=self)
-        data = [['<a href="{0}">{1}</a>'.format(fk.url_for('project_view', id=p.id), p.name),
-                 p.user.email,
-                 p._count(),
-                 p.created_at.strftime('%x %X')] for p in projects]
-        titles = ["Name", "User", "Number of Records", "Created"]
-        columns = [{"title" : t} for t in titles]
-        return data, columns
         
         

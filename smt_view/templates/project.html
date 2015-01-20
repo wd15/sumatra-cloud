@@ -32,7 +32,33 @@
       <h1 class="Records"></h1>
       <div class="table-responsive">
 
-        <table class="table table-striped" id="records">
+        <table class="table table-striped" id="tableid">
+          <thead>
+            <tr>
+              <th>Label</th>
+              <th>Reason</th>
+              <th>Outcome</th>
+              <th>Status</th>
+              <th>Time Stamp</th>
+              <th>Duration</th>
+              <th>Tags</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for record in records %}
+            <tr>
+              <td>
+                <a href="{{ url_for('record_view', id=record.id) }}">{{ record.label }}</a>
+              </td>
+              <td>{{ record.reason.split('\n', 1)[:50] if record.reason else '' }}</td>
+              <td>{{ record.outcome.split('\n', 1)[:50] if record.outcome else '' }}</td>
+              <td>{{ record.status }}</td>
+              <td>{{ record.timestamp }}</td>
+              <td>{{ record.duration }}</td>
+              <td>{{ record.tags }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
         </table>
 
       </div>
@@ -46,18 +72,9 @@
 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
 <script>
-  var dataset = {{ table_json|safe }};
-
-  $(function(){
-    $("#projects").dataTable({
-      "data" : dataset,
-      "columns" : [{"title" : "Label", "targets" : 0, "data" : "data.label"}]
-    });
-  });
+  $(document).ready(function() {
+    $('#tableid').DataTable();
+  } );
 </script>
-<!-- <script type="text/javascript" charset="utf-8"> -->
-<!--   $(document).ready(function() { -->
-<!--   $('#projects').dataTable(); -->
-<!--   } ); -->
-<!-- </script> -->
+
 {% endblock %}
