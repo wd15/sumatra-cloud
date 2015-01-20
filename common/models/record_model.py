@@ -23,7 +23,7 @@ class RecordModel(db.Document):
     def update(self, data):
         for k, v in self.update_fields(data):
             if k in data.keys():
-                setattr(self, k, v)
+                setattr(self, k, data[k])
                 del data[k]
         self.save()
         if data:

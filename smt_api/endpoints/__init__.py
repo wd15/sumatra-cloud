@@ -31,7 +31,7 @@ def project(project_name):
         return fk.Response('Project deleted', status.HTTP_200_OK)
 
 
-@app.route(API_URL + '/<project_name>/<record_label>/', methods=['GET', 'DELETE'])
+@app.route(API_URL + '/<project_name>/<record_label>/', methods=['GET', 'DELETE', 'PUT'])
 @requires_auth
 def record(project_name, record_label):
     project = ProjectModel.objects(name=project_name, user=fk.g.user).first_or_404()
@@ -41,7 +41,8 @@ def record(project_name, record_label):
     elif fk.request.method == 'PUT':
         data = json.loads(fk.request.data)
         record, created = RecordModel.objects.get_or_create(project=project, label=record_label)
-        recordHead.update(data)
+        record.update(data)
+        return fk.Response('Record updated', status.HTTP_200_OK)
     elif fk.request.method == 'DELETE':
         record = RecordModel.objects(project=project, label=record_label).first_or_404()
         record.delete()

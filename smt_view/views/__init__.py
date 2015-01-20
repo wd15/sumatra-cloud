@@ -3,6 +3,7 @@ import flask as fk
 import login_view
 import user_view
 import project_view
+import record_view
 
 @app.route('/')
 @app.route('/index')
