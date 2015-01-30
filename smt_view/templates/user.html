@@ -1,106 +1,44 @@
-{% extends "base.html" %}
+{% extends "base_nav.html" %}
 
-{% block headlinks %}
+{% block maincontent %}
 
-<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
-
-{% endblock %}
-
-{% block hostinfo %}
-
-<div class="host-info">   
-  <div class="name">
-    <span class="hostname">{{ user.email }}</span>
-  </div>
-  <div class="info">
-    58 simulations since 08/04/2015
-  </div>
-</div>
-
-{% endblock %}
-
-{% block content %}
-
-<div class="table-container">
-  <div class="content">
-    <div class="left-nav">
-      <ul class="menu">
-        <li {% if page == "user" %}class="active"{% endif %}>
-          <a href="#">
-            <span class="glyphicon glyphicon-th"></span>
-            <span class="option-text">Dashboard</span>
-          </a>
-        </li>
-        <li {% if page == "processes" %}class="active"{% endif %}>
-          <a href="#">
-            <span class="glyphicon glyphicon-tasks"></span>
-            <span class="option-text">Simulations</span>
-          </a>
-        </li>
-        <li {% if page == "network" %}class="active"{% endif %}>
-          <a href="#">
-            <span class="glyphicon glyphicon-info-sign"></span>
-            <span class="option-text">Analytics</span>
-          </a>
-        </li>
-        <li {% if page == "network" %}class="active"{% endif %}>
-          <a href="#">
-            <span class="glyphicon glyphicon-cloud-download"></span>
-            <span class="option-text">Download</span>
-          </a>
-        </li>
-        <li {% if page == "network" %}class="active"{% endif %}>
-          <a href="#">
-            <span class="glyphicon glyphicon-cloud-upload"></span>
-            <span class="option-text">Upload</span>
-          </a>
-        </li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <div id="dashboard">
-        <div class="box">
-          <div class="box-header">
-            <span>Projects</span>
-          </div>
-          <div class="box-content">
-            <table class="table responsive">
-              <table class="table table-striped" id="tableid">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>User</th>
-                    <th>Number of Records</th>
-                    <th>Created</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for project in projects %}
-                  <tr>
-                    <td>
-                      <a href="{{ url_for('project_view', id=project.id) }}">{{project.name}}</a>
-                    </td>
-                    <td>{{ project.user.email }}</td>
-                    <td>{{ project._count() }}</td>
-                    <td>{{ project.created_at.strftime('%x %X') }}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </table>
-          </div>
-        </div>
+<div class="main-content">
+  <div id="dashboard">
+    <div class="box">
+      <div class="box-header">
+        <span>Projects</span>
+      </div>
+      <div class="box-content">
+        <table class="table responsive">
+          <table class="table table-striped" id="tableid">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Simulation Count</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for project in user.projects %}
+              <tr>
+                <td>
+                  <a href="{{ url_for('project_view', id=project.id) }}">{{project.name}}</a>
+                </td>
+                <td>{{ project.record_count }}</td>
+                <td>{{ project.created_at.strftime('%x %X') }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </table>
       </div>
     </div>
   </div>
 </div>
 
-
 {% endblock %}
 
 {% block javascript %}
-<script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript" src="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
 <script>
   $(document).ready(function() {

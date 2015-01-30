@@ -15,7 +15,8 @@ class ProjectModel(db.Document):
         records = [r.to_json() for r in query]
         return json.dumps({'project' : self.name, 'url' : request.url, 'records' : records})
 
-    def _count(self):
+    @property
+    def record_count(self):
         from ..models import RecordModel
         return RecordModel.objects(project=self).count()
 

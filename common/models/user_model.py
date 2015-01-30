@@ -24,5 +24,11 @@ class UserModel(db.Document):
         except NameError:
             return str(self.id)  # python 3
 
-        
-        
+    @property
+    def projects(self):
+        from common.models import ProjectModel
+        return ProjectModel.objects(user=self)
+    
+    @property
+    def record_count(self):
+        return sum([p.record_count for p in self.projects])
