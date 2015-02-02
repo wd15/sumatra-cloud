@@ -12,8 +12,12 @@ class RecordModel(db.Document):
     possible_status = ["crashed", "unknown", "started", "running", "finished"]
     status = db.StringField(default="unknown", choices=possible_status)
     tags = db.ListField(db.StringField(max_length=100))
-    created_at = db.DateTimeField(default=datetime.datetime.now)
+    last_updated = db.DateTimeField(default=datetime.datetime.now)
 
+    def save(self, *args, **kwargs):
+        self.last_updated = datetime.datetime.now()
+        return super(RecordModel, self).save(*args, **kwargs)
+    
     def update_fields(self, data):
         for k, v in self._fields.iteritems():
             if not v.required:

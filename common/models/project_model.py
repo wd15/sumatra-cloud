@@ -7,7 +7,6 @@ import datetime
 class ProjectModel(db.Document):
     user = db.ReferenceField(UserModel, reverse_delete_rule=db.CASCADE, required=True)
     name = db.StringField(max_length=300, required=True)
-    created_at = db.DateTimeField(default=datetime.datetime.now)
     
     def to_smt_json(self, request):
         from ..models import RecordModel
@@ -17,6 +16,14 @@ class ProjectModel(db.Document):
 
     @property
     def record_count(self):
+        return self.records.count()
+
+    @property
+    def records(self):
         from ..models import RecordModel
-        return RecordModel.objects(project=self).count()
+        return RecordModel.objects(project=self)
+    
+    @property
+    def last_updated(self):
+        return self.records.order_by('-last_updated').limit(1).first().last_updated
 

@@ -207,7 +207,7 @@ a:hover {
     font-size: 20px;
     font-weight: 300;
     color: #808080;
-    padding: 10px 0;
+    /* padding: 10px 0; */
 }
 
 #processes {
@@ -215,10 +215,10 @@ a:hover {
 }
 
 #psdash table th {
-    padding: 13px 6px;
+    /* padding: 13px 6px; */
     font-size: 16px;
     font-weight: 300;
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 #psdash table th a {
@@ -233,7 +233,7 @@ a:hover {
 }
 
 #psdash table td a {
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 300;
 }
 
@@ -312,3 +312,32 @@ a:hover {
     background-color: #458bbe;
     border-color: #3b7ba4;
 }
+
+.dataTables_filter {
+    font-size: 12px;
+}
+
+.dataTables_paginate {
+   font-size: 12px;
+}
+
+.dataTables_info {
+   font-size: 12px;
+   max-width: 170px;
+   /* display: none; */
+}
+
+.dataTables_length {
+   font-size: 12px;
+}
+
+.form-inline .form-control {
+    display: inline-block;
+    width: auto;
+    max-width: 100px;
+    vertical-align: middle;
+}
+
+
+
+
