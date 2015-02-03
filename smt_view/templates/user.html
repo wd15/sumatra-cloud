@@ -46,8 +46,9 @@
               <tr>
                 <th>Label</th>
                 <th>Status</th>
-                <th>Tags</th>
                 <th>Time Stamp</th>
+                <th>Project</th>
+                <th>Tags</th>
               </tr>
             </thead>
             <tbody>
@@ -57,6 +58,10 @@
                     <a href="{{ url_for('record_view', id=record.id) }}">{{ record.label }}</a>
                   </td>
                   <td>{{ record.status }}</td>
+                  <td>{{ record.timestamp.strftime('%Y-%m-%d %X') }}</td>
+                  <td>
+                    <a href="{{ url_for('project_view', id=record.project.id) }}">{{ record.project.name }}</a>
+                  </td>
                   <td>
                     {% for tag in record.tags %}
                       {% if loop.last %}
@@ -66,7 +71,6 @@
                       {% endif %}
                     {% endfor %}
                   </td>
-                  <td>{{ record.timestamp.strftime('%Y-%m-%d %X') }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -88,7 +92,7 @@
   } );
 
   $(document).ready(function() {
-    $('#table-simulations').DataTable({"aaSorting": [[3, 'desc']]});
+    $('#table-simulations').DataTable({"aaSorting": [[2, 'desc']]});
   } );
 </script>
 
