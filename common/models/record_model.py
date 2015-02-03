@@ -12,7 +12,7 @@ class RecordModel(db.Document):
     possible_status = ["crashed", "unknown", "started", "running", "finished"]
     status = db.StringField(default="unknown", choices=possible_status)
     tags = db.ListField(db.StringField(max_length=100))
-    last_updated = db.DateTimeField(default=datetime.datetime.now)
+    last_updated = db.DateTimeField(default=datetime.datetime.now())
 
     def save(self, *args, **kwargs):
         self.last_updated = datetime.datetime.now()
@@ -27,8 +27,12 @@ class RecordModel(db.Document):
     def update(self, data):
         for k, v in self.update_fields(data):
             if k in data.keys():
-                setattr(self, k, data[k])
+                if k == 'timestamp':
+                    self.timestamp = datetime.datetime.strptime(data[k], '%Y-%m-%d %X')
+                else:
+                    setattr(self, k, data[k])
                 del data[k]
+                
         self.save()
         if data:
             body, created = RecordBodyModel.objects.get_or_create(head=self)

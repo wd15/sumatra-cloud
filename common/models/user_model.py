@@ -32,3 +32,12 @@ class UserModel(db.Document):
     @property
     def record_count(self):
         return sum([p.record_count for p in self.projects])
+
+    @property
+    def records(self):
+        records = []
+        for project in self.projects:
+            records += project.records
+        return records
+
+

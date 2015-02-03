@@ -4,19 +4,19 @@
 
 <div class="main-content">
   <div id="dashboard">
+
     <div class="box">
       <div class="box-header">
         <span>Projects</span>
       </div>
       <div class="box-content">
         <table class="table responsive">
-          <table class="table" id="tableid">
+          <table class="table" id="table-projects">
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Simulation Count</th>
                 <th>Last Updated</th>
-                <th>Last Update (no formatting for sorting)</th>
               </tr>
             </thead>
             <tbody>
@@ -26,8 +26,7 @@
                     <a href="{{ url_for('project_view', id=project.id) }}">{{project.name}}</a>
                   </td>
                   <td>{{ project.record_count }}</td>
-                  <td>{{ project.last_updated.strftime('%x %X') }}</td>
-                  <td>{{ project.last_updated }}</td>
+                  <td>{{ project.last_updated.strftime('%Y-%m-%d %X') }}</td>
                 </tr>
               {% endfor %}
             </tbody>
@@ -35,6 +34,47 @@
         </table>
       </div>
     </div>
+
+    <div class="box">
+      <div class="box-header">
+        <span>Simulations</span>
+      </div>
+      <div class="box-content">
+        <table class="table responsive">
+          <table class="table" id="table-simulations">
+            <thead>
+              <tr>
+                <th>Label</th>
+                <th>Status</th>
+                <th>Tags</th>
+                <th>Time Stamp</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for record in user.records %}
+                <tr>
+                  <td>
+                    <a href="{{ url_for('record_view', id=record.id) }}">{{ record.label }}</a>
+                  </td>
+                  <td>{{ record.status }}</td>
+                  <td>
+                    {% for tag in record.tags %}
+                      {% if loop.last %}
+                        {{ tag }}
+                      {% else %}
+                        {{ tag }},
+                      {% endif %}
+                    {% endfor %}
+                  </td>
+                  <td>{{ record.timestamp.strftime('%Y-%m-%d %X') }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -44,19 +84,11 @@
 
 <script>
   $(document).ready(function() {
-    $('#tableid').DataTable( {
-      "bSort": true,
-      "aaSorting": [[3,'desc']],
-      "columnDefs": [
-        {
-          "targets": [ 2 ],
-          "iDataSort": 3
-        },
-        {
-          "targets": [ 3 ],
-          "visible": false,
-        }
-    ] } );
+    $('#table-projects').DataTable({"aaSorting": [[2,'desc']]});
+  } );
+
+  $(document).ready(function() {
+    $('#table-simulations').DataTable({"aaSorting": [[3, 'desc']]});
   } );
 </script>
 
