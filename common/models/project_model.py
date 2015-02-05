@@ -27,3 +27,9 @@ class ProjectModel(db.Document):
     def last_updated(self):
         return self.records.order_by('-last_updated').limit(1).first().last_updated
 
+    @property
+    def duration(self):
+        return self.records.sum('duration')
+
+        
+            

@@ -4,6 +4,6 @@ from smt_view import app
 
 
 @app.route('/user/view/<objectid:id>')
-def user_view(id):
+def dashboard_view(id):
     user = UserModel.objects.with_id(id)
-    return fk.render_template('user.html', user=user)
+    return fk.render_template('dashboard.html', user=user)

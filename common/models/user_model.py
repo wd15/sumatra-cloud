@@ -1,6 +1,6 @@
 import datetime
 from ..core import db
-import flask as fk
+
 
 class UserModel(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now)
@@ -40,4 +40,9 @@ class UserModel(db.Document):
             records += project.records
         return records
 
+    @property
+    def duration(self):
+        return sum([p.duration for p in self.projects])
 
+
+            

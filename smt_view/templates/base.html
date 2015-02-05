@@ -36,7 +36,7 @@
                         </li>
                         {% else %}
                         <li>
-                          <a href="{{ url_for('user_view', id=g.user.id) }}">
+                          <a href="{{ url_for('dashboard_view', id=g.user.id) }}">
                             {{ g.user.email }}
                           </a>
                         </li>
