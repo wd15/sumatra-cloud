@@ -10,12 +10,14 @@ APP_TITLE = 'Sumatra Cloud'
 
 VERSION = '0.1-dev'
 
-OPENID_PROVIDERS = [
-    {'name': 'Google', 'url': 'https://www.google.com/accounts/o8/id'},
-    {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
-
 MONGODB_SETTINGS = {
     'db': 'sumatra-flask',
     'host': '127.0.0.1',
     'port': 27017
 }
+
+STORMPATH_API_KEY_FILE = '~/.stormpath/apiKey.properties'
+STORMPATH_APPLICATION = 'sumatra-cloud'
+STORMPATH_REDIRECT_URL = '/dashboard'
+
+

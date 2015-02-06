@@ -25,32 +25,31 @@
                   {% block hostinfo %}
                   {% endblock %}
                   <div id="navbar" class="navbar-collapse collapse">
-                      <ul class="nav navbar-nav navbar-right">
-                        {% if g.user.is_anonymous() %}
+                    <ul class="nav navbar-nav navbar-right">
+                      {% if user.is_anonymous() %}
                         <li>
                           <p class="navbar-btn">
-                            <a href="{{ url_for('login_view') }}" class="btn btn-primary">
+                            <a href="{{ url_for('stormpath.login') }}" class="btn btn-primary">
                               Login
                             </a>
                           </p>
                         </li>
-                        {% else %}
+                      {% else %}
                         <li>
-                          <a href="{{ url_for('dashboard_view', id=g.user.id) }}">
-                            {{ g.user.email }}
+                          <a href="{{ url_for('user_view') }}">
+                            {{ user.email }}
                           </a>
                         </li>
                         <li>
                           <p class="navbar-btn">
-                            <a href="{{ url_for('logout_view', next=request.path) }}" class="btn btn-danger">
+                            <a href="{{ url_for('stormpath.logout', next=request.path) }}" class="btn btn-danger">
                               Logout
                             </a>
                           </p>
                         </li>
-
-                        {% endif %}
-                      </ul>
-                    </div>
+                      {% endif %}
+                    </ul>
+                  </div>
                 </div>
             </div>
             {% block content %}
