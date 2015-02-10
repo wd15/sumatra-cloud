@@ -31,7 +31,7 @@ structures.
 
 ## License
 
-[The MIT license.][/LICENSE]
+[The MIT license.][LICENSE]
 
 ## Instances
 
