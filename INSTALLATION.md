@@ -14,3 +14,4 @@ To install MongoDB
 
     $ pip install flask
     $ pip install docopt
+    $ pip install flask-api
