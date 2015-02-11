@@ -1,6 +1,5 @@
 from smt_view import app
 import flask as fk
-import login_view
 import dashboard_view
 import project_view
 import record_view
@@ -13,5 +12,6 @@ def index_view():
 @app.route('/learn')
 def learn_view():
     return fk.redirect(fk.url_for('index_view'))
+
 
 

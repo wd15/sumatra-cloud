@@ -13,15 +13,15 @@
         <table class="table">
           <tr>
             <td class="label-col">Project Count</td>
-            <td>{{ user.projects|length }}</td>
+            <td>{{ user_model.projects|length }}</td>
           </tr>
           <tr>
             <td class="label-col">Simulation Count</td>
-            <td> {{ user.record_count }} </td>
+            <td> {{ user_model.record_count }} </td>
           </tr>
           <tr>
             <td class="label-col">Total Simulation Duration</td>
-            <td> {{ user.duration|hms }} </td>
+            <td> {{ user_model.duration|hms }} </td>
           </tr>
         </table>
       </div>
@@ -42,7 +42,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for project in user.projects %}
+              {% for project in user_model.projects %}
                 <tr>
                   <td>
                     <a href="{{ url_for('project_view', id=project.id) }}">{{project.name}}</a>
@@ -74,7 +74,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for record in user.records %}
+              {% for record in user_model.records %}
                 <tr>
                   <td>
                     <a href="{{ url_for('record_view', id=record.id) }}">{{ record.label }}</a>

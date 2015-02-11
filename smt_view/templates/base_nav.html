@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
-{% set user_url = url_for('dashboard_view', id=user.id) %}
+{% set user_url = url_for('dashboard_view', id=user_model.id) %}
 
 {% block hostinfo %}
 
 <div class="host-info">   
   <div class="name">
     <a href={{ user_url }}>
-      <span class="hostname">{{ user.email }}</span>
+      <span class="hostname">{{ user_model.email }}</span>
     </a>
   </div>
   <div class="info">
-    {{ user.record_count }} simulations since {{ user.created_at.strftime('%x') }}
+    {{ user_model.record_count }} simulations since {{ user_model.created_at.strftime('%x') }}
   </div>
 </div>
 
