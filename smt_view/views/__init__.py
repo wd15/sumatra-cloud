@@ -1,7 +1,7 @@
 from smt_view import app
 import flask as fk
 import login_view
-import user_view
+import dashboard_view
 import project_view
 import record_view
 

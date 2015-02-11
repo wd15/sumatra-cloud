@@ -22,5 +22,6 @@ login_manager.init_app(app)
 login_manager.login_view = 'login_view'
 openid = OpenID(app, os.path.join(basedir, 'tmp'))
 
-import views
+from . import views
 from common import models
+from . import filters

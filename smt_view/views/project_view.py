@@ -7,5 +7,5 @@ from common.models import RecordModel
 def project_view(id):
     project = ProjectModel.objects.with_id(id)
     records = RecordModel.objects(project=project)
-    return fk.render_template('project.html', project=project, records=records)
+    return fk.render_template('project.html', project=project, records=records, user=project.user)
 

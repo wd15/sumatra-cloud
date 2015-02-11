@@ -9,7 +9,7 @@ from common.models import UserModel
 @openid.loginhandler
 def login_view():
     if fk.g.user is not None and fk.g.user.is_authenticated():
-        return fk.redirect(fk.url_for('user_view', id=fk.g.user.id))
+        return fk.redirect(fk.url_for('dashboard_view', id=fk.g.user.id))
     form = LoginForm()
     if form.validate_on_submit():
         fk.session['remember_me'] = form.remember_me.data
